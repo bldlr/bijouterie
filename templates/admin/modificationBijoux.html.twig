@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block monTitre %}Modification {{produit.nom}}{% endblock %}
+
+
+{% block body %}
+
+{{form_start(form)}}
+        <div class="row">
+            
+            <div class="row col-12 align-items-center p-0">
+
+                <div class="col-6">
+                    <div class="row justify-content-center"><img src="{{asset('images/produits/' ~ produit.image )}}" style="width:36%" ></div>
+                </div>
+
+                <div class="col-6">
+                    <div>{{ form_row(form.imageFile) }}</div>
+                </div>
+
+            </div>
+
+
+            <div class="col-6">
+                
+                <div>{{ form_row(form.nom)}}</div>
+                <div>{{ form_row(form.categories) }}</div>
+                <div>{{ form_row(form.description) }}</div>
+            </div>
+            <div class="col-6">
+                <div>{{ form_row(form.genre) }}</div>
+                <div>{{ form_row(form.matiere) }}</div>
+                <div>{{ form_row(form.prix) }}</div>
+            </div>
+        </div>
+
+
+
+
+<div class="row col-12">
+<div class="row justify-content-start col-6">
+    <a href="{{ path('admin_bijoux') }}" class=" btn btn-primary">Précédent</a>
+</div>
+
+<div class="row justify-content-end col-6">
+    <input type="submit" value="Enregistrer" class="btn btn-info">
+</div>
+</div>
+{{form_end(form)}}
+{% endblock %}

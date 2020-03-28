@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for message in app.flashes('profil') %}
+        <div class="alert alert-success d-inline-block">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success d-inline-block">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class='banniere_form'>
+        <h2 class="card-header info-color white-text text-center py-4">Informations du profil</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h4 class="card-title text-info"><strong> {{ user.prenom }} {{ user.nom }}</strong></h4>
+                        <p class="card-text"><strong>{{ user.adresse }}</strong></p>
+                        <p class="card-text"><strong>{{ user.codePostal }} {{ user.ville }}</strong></p>
+                        <p class="card-text"><strong>{{ user.email }}</strong></p>
+                        <p class="card-text"><strong>{{ user.telephone }}</strong></p>
+                        <hr>
+                        <h4 class="card-title text-info"><strong>Inscription</strong></h4>
+                        <p class="card-text"><strong>{{ user.registerAt|date("d M Y") }}</strong></p>
+
+                        <div class="row justify-content-start ">
+                            <a class=" btn btn-info" href="{{ path('profil_modification', {id : user.id}) }}">Modifier votre profil</a>
+                            <a class=" btn btn-info" href="{{ path('password_modification', {id : user.id}) }}">Modifier votre mot de passe</a>
+                            <form method="post" class=" col-6" action="{{ path('profil_suppression', {'id': user.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer votre compte ?');">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                <button class="btn btn-danger col-12">Supprimer votre compte</button>
+                            </form>
+                        </div>
+                            
+                        
+                    </div>
+
+         
+                   
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

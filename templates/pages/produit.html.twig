@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block monTitre %}Produit{% endblock %}
+
+
+{% block body %}
+
+
+            <div class="col-4 mt-4">
+                <div class="rounded p-2 clearfix" style="box-shadow : 2px 2px 6px">
+                
+                    <h5 style="min-height: 80px;" class="text-center">{{ produit.nom }}</h5>
+                        
+                    <img class="img-fluid rounded" src="{{asset('images/produits/' ~ produit.image)}}" alt="Image de {{ produit.nom }}">
+                    
+                    <hr>
+
+                    <div>
+                        <h2 class=" ml-2 d-inline-block">{{ produit.prix }}€</h2>
+                        <select name="qte">
+                        {% for i in 1..10 %}
+                            <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                        </select>
+                        <div><a  href="{{ path('cart_add', {'id':produit.id}) }}" class="btn btn-outline-primary float-right">Ajouter</a></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+{% endblock %}

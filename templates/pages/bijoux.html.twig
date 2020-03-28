@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block monTitre %}Collection 2020
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-3">
+            {% include 'pages/_filter.html.twig' with {form: form} only %}
+            <!-- PARTIE FILTRE -->
+        </div>
+
+        <div class="col-md-9">
+            <div class="containerInfini">
+                <div class="row itemInfini">
+                {% for produit in produits %}
+                    {% include 'pages/_card.html.twig' with {produit: produit} only %}
+                    <!-- PARTIE CARD DES PRODUITS -->
+                {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PARTIE PAGINATION  -->
+<div class="paginationInfini">
+{% for i in range(1, nbPage) %}
+    {% if i == pageCourante %}
+    {{ i }}
+    {% elseif i == pageCourante + 1 %}
+    <a href="{{ path('bijoux', {"page" : i} )}}" class="nextInfini">{{i}}</a>;
+    {% else %}
+    <a href="{{ path('bijoux', {"page" : i} )}}" >{{i}}</a>;
+    {% endif %}
+{% endfor %}
+</div>
+
+
+
+
+
+<script src="https://unpkg.com/@webcreate/infinite-ajax-scroll/dist/infinite-ajax-scroll.min.js"></script>
+<!-- SCRIPT AJAX POUR LE SCROLL INFINI QUI SE BASE SUR UNE PAGINATION  -->
+
+
+<script>
+
+let ias = new InfiniteAjaxScroll('.containerInfini', { // CONTAINER : LA PARTIE Où IL Y A LES PRODUITS
+  item: '.itemInfini', // LA BOUCLE DES PRODUITS
+  next: '.nextInfini', // EN FIN DE SCROLL AFFICHAGE DE LA PAGE N+1
+  pagination: '.paginationInfini' // CLASS QUI N AFFICHE PAS LA PAGINATION
+});
+</script>
+
+{% endblock %}

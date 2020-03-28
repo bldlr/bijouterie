@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!
+{% endblock %}
+
+{% block body %}
+    <div class="bg-secondary p-3 text-center">
+        <h1>Votre panier</h1>
+    </div>
+    {% if items | length > 0 %}
+      <table class="table table-hover table-dark">
+        <thead class="text-center">
+          <tr>
+            <th></th>
+            <th class="text-left">Produit</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Total</th>
+            <th></th>
+          <tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        <tr>
+        <td><img class="img-fluid rounded" style="width:50px" src="{{asset('images/produits/' ~ item.product.image)}}" alt="Image de {{ item.product.nom }}"></td>
+          <td>{{ item.product.nom }}</td>
+          <td class="text-center">{{ item.product.prix }}</td>
+          <td class="text-center">{{ item.quantity }}</td>
+          <td class="text-center">{{ item.product.prix * item.quantity }}</td>
+          <td>
+            <a href="{{ path('cart_remove', {'id': item.product.id })}}" class="btn btn-danger btn-sm">X</a>
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+          <td colspan="4" class="text-right">Total :</td>
+          <td class="text-center">{{ total }}</td>
+          <td></td>
+          </tr>
+        </tfoot>
+      </table>
+
+    {% else %}
+      <p>votre panier est vide</p>
+    {% endif %}
+
+{% endblock %}
+

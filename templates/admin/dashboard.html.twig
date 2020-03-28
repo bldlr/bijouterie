@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block monTitre %}Bonjour Monsieur {{user.prenom}} {% endblock %}
+{% block body %}
+    <div style="width:80%;  margin:auto;  margin-top: 30px;">
+        <img style="width:100%;" src="{{ asset("images/dashboard.png") }}">
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block monTitre %}
+    {% if is_granted('ROLE_USER') %}
+        Bonjour {{ user.prenom }}
+    {% elseif not user %}
+        Bienvenue
+    {% endif %}
+{% endblock %}
+
+
+{% block body %}
+
+    {% for message in app.flashes('supp') %}
+        <div class="alert alert-success d-inline-block">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div style="width:80%;  margin:auto;  margin-top: 75px;">
+    {% else %}
+        <div style="width:80%;  margin:auto;  margin-top: 30px;">
+    {% endif %}
+
+        <img style="width:100%" src="{{ asset("images/accueil.png") }}">
+    </div>
+{% endblock %}

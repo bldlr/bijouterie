@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+{% block monTitre %}Inscription{% endblock %}
+
+{% block body %}
+<hr style='background:white'>
+<div class="row justify-content-center">
+    <div class="col-6 text-center ">
+
+
+{{form_start(form)}}
+    {{ form_row(form.email) }}
+        <div class="row">
+            <div class="col-6">
+            {{ form_row(form.plainPassword.first) }}
+            </div>
+            <div class="col-6">
+            {{ form_row(form.plainPassword.second) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+            {{ form_row(form.prenom) }}
+            </div>
+            <div class="col-6">
+            {{ form_row(form.nom) }}
+            </div>
+        </div>
+    
+    {{ form_row(form.telephone) }}    
+    {{ form_row(form.adresse) }}
+
+        <div class="row">
+            <div class="col-3">
+            {{ form_row(form.codePostal) }}
+            </div>
+            <div class="col-9">
+            {{ form_row(form.ville) }}
+            </div>
+        </div>
+
+    {{ form_row(form.agreeTerms) }}
+    <input type="submit" class="btn btn-info pr-4 pl-4" value="S'inscrire">
+{{form_end(form)}}
+
+
+
+    </div>
+</div>
+{% endblock %}
