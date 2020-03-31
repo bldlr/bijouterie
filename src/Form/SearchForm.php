@@ -76,6 +76,7 @@ class SearchForm extends AbstractType // Symfony saura qu'on est en présence d'
             return ''; // url vide et propre
         }
 
+        
 
 
 

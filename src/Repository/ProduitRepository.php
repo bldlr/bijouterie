@@ -23,19 +23,23 @@ class ProduitRepository extends ServiceEntityRepository
     }
 
 
+   
+
+
 /**
  * Récupère les produits en lien avec la recherche
  * @return Produit[]
  */
-public function findSearch(SearchData $search, $start, $produitsParPage): array
+public function findSearch(SearchData $search, $start, $quantitePage): array
 {
+
     $query = $this
         ->createQueryBuilder('p')
         ->select('c', 'p') // selectionne toutes les infos liées aux catégories mais aussi aux produits (moins de requètes)
         ->join('p.categories', 'c')
         ->orderBy('p.id', 'ASC')
         ->setFirstResult($start)
-        ->setMaxResults($produitsParPage);
+        ->setMaxResults($quantitePage);
 
         if(!empty($search->q))
         {
@@ -67,28 +71,28 @@ public function findSearch(SearchData $search, $start, $produitsParPage): array
         }
 
 
-        if(!empty($search->ordre[0]))
+        if(!empty($search->ordre))
         {
             $query = $query
-            ->orderBy("p.price", "ASC");
+            ->orderBy("p.prix", "ASC");
         }
 
-        if(!empty($search->ordre[1]))
+        if(!empty($search->getOrdre(1)))
         {
             $query = $query
-            ->orderBy("p.price", "DESC");
+            ->orderBy("p.prix", "DESC");
         }
 
         if(!empty($search->ordre[2]))
         {
             $query = $query
-            ->orderBy("p.name", "ASC");
+            ->orderBy("p.nom", "ASC");
         }
 
-        if(!empty($search->ordre[3]))
+        if(!empty($search->getOrdre(3)))
         {
             $query = $query
-            ->orderBy("p.name", "DESC");
+            ->orderBy("p.nom", "DESC");
         }
 
     return $query->getQuery()->getResult();

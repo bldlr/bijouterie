@@ -31,29 +31,33 @@ class PagesController extends AbstractController
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
 
-        $quantitePage = 12;// nombre de produits dans une page
-        $produitsAll = $repoProduit->findAll(); 
-        $produitsTotal = count($produitsAll); // nombre de produits total
+        $quantitePage = 12;// nombre de produits par page
+        $produits = $repoProduit->findAll();
+        $produitsNb = count($produits); // nombre de produits total
  
-        dump($produitsTotal);
-        $nbPage = ceil($produitsTotal/$quantitePage); // nombre de pages = nombre de produits total divisé par le nombre sur une page, arrondi à l'unité supérieure
+        dump($produitsNb);
+        $nbPage = ceil($produitsNb/$quantitePage); // nombre de pages = nombre de produits total divisé par le nombre sur une page, arrondi à l'unité supérieure
         dump($nbPage);
+
         
 
-
-        if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0 AND $_GET['page'] <= $nbPage)
+        if($produits > 12)
         {
-            $_GET['page'] = intval($_GET['page']);
+        if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0 AND $_GET['page'] <= $nbPage)
+        // si $_GET['page'] existe, qu'elle est bien définie , superieure à 0 et inférieure ou égale au nombre de pages
+        {
+            $_GET['page'] = intval($_GET['page']); // $_GET['page'] n'accepte que les chiffres
             $pageCourante = $_GET['page'];
              
         }
         else
         {
-            $pageCourante = 1; 
+            $pageCourante = 1; // sinon page = 1 
         }
-        $start = ($pageCourante-1)*$quantitePage; // debut de chaque page
-
+        $start = ($pageCourante-1)*$quantitePage; // debut de chaque page, le premier chiffre de la limite
+        }
         $produits = $repoProduit->findSearch($data, $start, $quantitePage);
+        dump($produits);
         return $this->render('pages/bijoux.html.twig', [
         'produits' => $produits,
         'user' => $this->getUser(),
@@ -70,7 +74,8 @@ class PagesController extends AbstractController
     public function produit(Produit $produit)
     {
         return $this->render('pages/produit.html.twig', [
-        'produit' => $produit
+        'produit' => $produit,
+        'user' => $this->getUser()
         ]);
     }
 

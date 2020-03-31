@@ -11,7 +11,7 @@ class SearchData
         'Prix Croissant' => 0,
         'Prix Décroissant' => 1,
         'Nom Croissant' => 2,
-        'Nom Décroissant' => 3,
+        'Nom Décroissant' => 3
     ];
 
 

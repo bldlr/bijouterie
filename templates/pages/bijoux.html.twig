@@ -22,13 +22,24 @@
                 {% for produit in produits %}
                     {% include 'pages/_card.html.twig' with {produit: produit} only %}
                     <!-- PARTIE CARD DES PRODUITS -->
+                    
                 {% endfor %}
 
+
                 </div>
+
+                            <div class="spinner-border mx-auto d-block mt-2 mb-2 load" style="display:none !important;" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+
             </div>
+
+
         </div>
     </div>
 </div>
+
+
 
 <!-- PARTIE PAGINATION  -->
 <div class="paginationInfini">
@@ -37,8 +48,6 @@
     {{ i }}
     {% elseif i == pageCourante + 1 %}
     <a href="{{ path('bijoux', {"page" : i} )}}" class="nextInfini">{{i}}</a>;
-    {% else %}
-    <a href="{{ path('bijoux', {"page" : i} )}}" >{{i}}</a>;
     {% endif %}
 {% endfor %}
 </div>
@@ -58,6 +67,21 @@ let ias = new InfiniteAjaxScroll('.containerInfini', { // CONTAINER : LA PARTIE 
   next: '.nextInfini', // EN FIN DE SCROLL AFFICHAGE DE LA PAGE N+1
   pagination: '.paginationInfini' // CLASS QUI N AFFICHE PAS LA PAGINATION
 });
+
+
 </script>
+{# <script>
+    if($(window)).scrollTop() == $(document).height() - $(window).height())
+    {
+        if(html)
+        {
+            $('.load').show();
+
+        }
+        else{
+            alert("test");
+        }
+    }
+</script> #}
 
 {% endblock %}
