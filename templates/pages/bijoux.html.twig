@@ -41,7 +41,7 @@
 
 
 
-<!-- PARTIE PAGINATION  -->
+{# <!-- PARTIE PAGINATION  -->
 <div class="paginationInfini">
 {% for i in range(1, nbPage) %}
     {% if i == pageCourante %}
@@ -50,7 +50,7 @@
     <a href="{{ path('bijoux', {"page" : i} )}}" class="nextInfini">{{i}}</a>;
     {% endif %}
 {% endfor %}
-</div>
+</div> #}
 
 
 

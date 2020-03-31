@@ -30,16 +30,14 @@ class ProduitRepository extends ServiceEntityRepository
  * Récupère les produits en lien avec la recherche
  * @return Produit[]
  */
-public function findSearch(SearchData $search, $start, $quantitePage): array
+public function findSearch(SearchData $search): array
 {
 
     $query = $this
         ->createQueryBuilder('p')
         ->select('c', 'p') // selectionne toutes les infos liées aux catégories mais aussi aux produits (moins de requètes)
-        ->join('p.categories', 'c')
-        ->orderBy('p.id', 'ASC')
-        ->setFirstResult($start)
-        ->setMaxResults($quantitePage);
+        ->join('p.categories', 'c');
+        //->orderBy('p.id', 'ASC');
 
         if(!empty($search->q))
         {
@@ -71,29 +69,34 @@ public function findSearch(SearchData $search, $start, $quantitePage): array
         }
 
 
-        if(!empty($search->ordre))
+        if(!empty($ordre = $search->ordre))
         {
-            $query = $query
-            ->orderBy("p.prix", "ASC");
+            switch($ordre)
+            {
+                case 1 : 
+                    $query = $query
+                    ->orderBy("p.prix", "ASC");
+                break;
+
+                case 2 : 
+                    $query = $query
+                    ->orderBy("p.prix", "DESC");
+                break;
+
+                case 3 : 
+                    $query = $query
+                    ->orderBy("p.nom", "ASC");
+                break;
+
+                case 4 : 
+                    $query = $query
+                    ->orderBy("p.nom", "DESC");
+                break;
+                default;
+            }
+            
         }
 
-        if(!empty($search->getOrdre(1)))
-        {
-            $query = $query
-            ->orderBy("p.prix", "DESC");
-        }
-
-        if(!empty($search->ordre[2]))
-        {
-            $query = $query
-            ->orderBy("p.nom", "ASC");
-        }
-
-        if(!empty($search->getOrdre(3)))
-        {
-            $query = $query
-            ->orderBy("p.nom", "DESC");
-        }
 
     return $query->getQuery()->getResult();
 }

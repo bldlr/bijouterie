@@ -55,7 +55,12 @@ class SearchForm extends AbstractType // Symfony saura qu'on est en présence d'
                     ->add('ordre', ChoiceType::class, [
                         'required' => false,
                         'label' => false,
-                        'choices' => SearchData::TRI
+                        'choices' => [
+                            'Prix Croissant' => 1,
+                            'Prix Décroissant' => 2,
+                            'Nom Croissant' => 3,
+                            'Nom Décroissant' => 4
+                        ]
                     ])
                     
                 ;

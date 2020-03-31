@@ -7,12 +7,12 @@ class SearchData
 {
 
   
-    const TRI = [
-        'Prix Croissant' => 0,
-        'Prix Décroissant' => 1,
-        'Nom Croissant' => 2,
-        'Nom Décroissant' => 3
-    ];
+    // const TRI = [
+    //     'Prix Croissant' => 0,
+    //     'Prix Décroissant' => 1,
+    //     'Nom Croissant' => 2,
+    //     'Nom Décroissant' => 3
+    // ];
 
 
     /**
@@ -45,25 +45,25 @@ class SearchData
     /**
      * @var string
      */
-        private $ordre;
+        public $ordre;
 // PROBLEME POUR LA PARTIE ORDRE
 
-        public function getOrdre(): ?int
-        {
-            return $this->ordre;
-        }
+        // public function getOrdre(): ?int
+        // {
+        //     return $this->ordre;
+        // }
     
-        public function setOrdre(int $ordre): self
-        {
-            $this->ordre = $ordre;
+        // public function setOrdre(int $ordre): self
+        // {
+        //     $this->ordre = $ordre;
     
-            return $this;
-        }
+        //     return $this;
+        // }
     
-        public function getOrdreType(): string
-        {
-            return self::TRI[$this->ordre];
-        }
+        // public function getOrdreType(): string
+        // {
+        //     return self::TRI[$this->ordre];
+        // }
 
 
 
